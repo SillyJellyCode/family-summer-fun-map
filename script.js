@@ -57,8 +57,8 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty, isShape = fa
 // Add GeoJSON data for parks with labels
 addGeoJsonData('data/Parks.geojson', map, 'GIS_FeatureKey', 'description', true);
 
-// Function to filter amenities by type
-function filterAmenities(type) {
+// Function to filter amenities by type and owner
+function filterAmenities(type, owner) {
     if (amenitiesLayer) {
         map.removeLayer(amenitiesLayer);
     }
@@ -73,16 +73,18 @@ function filterAmenities(type) {
         .then(data => {
             amenitiesLayer = L.geoJSON(data, {
                 filter: function (feature) {
-                    if (type === 'all') {
-                        return true;
-                    }
-                    return feature.properties.type === type;
+                    const typeMatch = type === 'all' || feature.properties.type === type;
+                    const ownerMatch = owner === 'all' || feature.properties.owner === owner;
+                    return typeMatch && ownerMatch;
                 },
                 onEachFeature: function (feature, layer) {
                     if (feature.properties && feature.properties.name) {
                         let popupContent = `<b>${feature.properties.name}</b>`;
                         if (feature.properties.type) {
                             popupContent += `<br>${feature.properties.type}`;
+                        }
+                        if (feature.properties.owner) {
+                            popupContent += `<br>${feature.properties.owner}`;
                         }
                         layer.bindPopup(popupContent);
                     }
@@ -95,10 +97,17 @@ function filterAmenities(type) {
 }
 
 // Initial load of all amenities
-filterAmenities('all');
+filterAmenities('all', 'all');
 
-// Add event listener for the dropdown
+// Add event listener for the dropdowns
 document.getElementById('amenity-type').addEventListener('change', function () {
     const selectedType = this.value;
-    filterAmenities(selectedType);
+    const selectedOwner = document.getElementById('amenity-owner').value;
+    filterAmenities(selectedType, selectedOwner);
+});
+
+document.getElementById('amenity-owner').addEventListener('change', function () {
+    const selectedOwner = this.value;
+    const selectedType = document.getElementById('amenity-type').value;
+    filterAmenities(selectedType, selectedOwner);
 });
