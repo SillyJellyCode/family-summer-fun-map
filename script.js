@@ -35,13 +35,14 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty, isShape = fa
                         layer.bindPopup(popupContent);
 
                         if (isShape) {
-                            // Add a label for park shapes
-                            let label = L.divIcon({
-                                className: 'label-class',
-                                html: feature.properties[nameProperty],
-                                iconSize: [100, 40] // Adjust size as needed
+                            // Add hover event to show popup
+                            layer.on('mouseover', function () {
+                                layer.openPopup();
                             });
-                            L.marker(layer.getBounds().getCenter(), { icon: label }).addTo(map);
+                            // Add click event to show popup
+                            layer.on('click', function () {
+                                layer.openPopup();
+                            });
                         }
                     }
                 }
