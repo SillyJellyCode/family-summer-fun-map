@@ -57,7 +57,7 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty, isShape = fa
 // Add GeoJSON data for parks with labels
 addGeoJsonData('data/Parks.geojson', map, 'GIS_FeatureKey', 'description', true);
 
-// Function to filter amenities by type and owner
+// Function to filter amenities by Type and Owner
 function filterAmenities(type, owner) {
     if (amenitiesLayer) {
         map.removeLayer(amenitiesLayer);
@@ -73,18 +73,19 @@ function filterAmenities(type, owner) {
         .then(data => {
             amenitiesLayer = L.geoJSON(data, {
                 filter: function (feature) {
-                    const typeMatch = type === 'all' || feature.properties.type === type;
-                    const ownerMatch = owner === 'all' || feature.properties.owner === owner;
+                    const typeMatch = type === 'all' || feature.properties.Type === type;
+                    const ownerMatch = owner === 'all' || feature.properties.Owner === owner;
+                    console.log(`Feature Type: ${feature.properties.Type}, Feature Owner: ${feature.properties.Owner}, Type match: ${typeMatch}, Owner match: ${ownerMatch}`);
                     return typeMatch && ownerMatch;
                 },
                 onEachFeature: function (feature, layer) {
                     if (feature.properties && feature.properties.name) {
                         let popupContent = `<b>${feature.properties.name}</b>`;
-                        if (feature.properties.type) {
-                            popupContent += `<br>${feature.properties.type}`;
+                        if (feature.properties.Type) {
+                            popupContent += `<br>${feature.properties.Type}`;
                         }
-                        if (feature.properties.owner) {
-                            popupContent += `<br>${feature.properties.owner}`;
+                        if (feature.properties.Owner) {
+                            popupContent += `<br>${feature.properties.Owner}`;
                         }
                         layer.bindPopup(popupContent);
                     }
