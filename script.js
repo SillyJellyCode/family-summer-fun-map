@@ -8,14 +8,21 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Function to add GeoJSON data to the map
 function addGeoJsonData(url, map, nameProperty, additionalProperty) {
+    console.log(`Fetching GeoJSON data from: ${url}`);
     fetch(url)
         .then(response => {
+            console.log(`Response status: ${response.status}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            return response.json();
+            return response.text(); // Change to text() to log the raw response
+        })
+        .then(text => {
+            console.log(`Raw response data from ${url}:`, text);
+            return JSON.parse(text); // Parse the text response
         })
         .then(data => {
+            console.log(`GeoJSON data loaded from ${url}:`, data);
             L.geoJSON(data, {
                 onEachFeature: function (feature, layer) {
                     if (feature.properties && feature.properties[nameProperty]) {
@@ -27,6 +34,7 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty) {
                     }
                 }
             }).addTo(map);
+            console.log(`GeoJSON data added to the map from ${url}`);
         })
         .catch(error => {
             console.error(`Failed to load GeoJSON data from ${url}:`, error);
