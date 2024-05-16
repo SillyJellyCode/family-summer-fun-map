@@ -24,3 +24,12 @@ h1 {
 p {
     color: #666;
 }
+
+.label-class {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 2px;
+    font-size: 12px;
+    text-align: center;
+}

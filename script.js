@@ -6,8 +6,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
+var amenitiesLayer;
+
 // Function to add GeoJSON data to the map
-function addGeoJsonData(url, map, nameProperty, additionalProperty) {
+function addGeoJsonData(url, map, nameProperty, additionalProperty, isShape = false) {
     console.log(`Fetching GeoJSON data from: ${url}`);
     fetch(url)
         .then(response => {
@@ -31,6 +33,16 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty) {
                             popupContent += `<br>${feature.properties[additionalProperty]}`;
                         }
                         layer.bindPopup(popupContent);
+
+                        if (isShape) {
+                            // Add a label for park shapes
+                            let label = L.divIcon({
+                                className: 'label-class',
+                                html: feature.properties[nameProperty],
+                                iconSize: [100, 40] // Adjust size as needed
+                            });
+                            L.marker(layer.getBounds().getCenter(), { icon: label }).addTo(map);
+                        }
                     }
                 }
             }).addTo(map);
@@ -41,8 +53,51 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty) {
         });
 }
 
-// Add GeoJSON data for parks
-addGeoJsonData('data/Parks.geojson', map, 'GIS_FeatureKey', 'description');
+// Add GeoJSON data for parks with labels
+addGeoJsonData('data/Parks.geojson', map, 'GIS_FeatureKey', 'description', true);
 
-// Add GeoJSON data for park amenities
-addGeoJsonData('data/Park_Amenities.geojson', map, 'name', 'type');
+// Function to filter amenities by type
+function filterAmenities(type) {
+    if (amenitiesLayer) {
+        map.removeLayer(amenitiesLayer);
+    }
+
+    fetch('data/Park_Amenities.geojson')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            amenitiesLayer = L.geoJSON(data, {
+                filter: function (feature) {
+                    if (type === 'all') {
+                        return true;
+                    }
+                    return feature.properties.type === type;
+                },
+                onEachFeature: function (feature, layer) {
+                    if (feature.properties && feature.properties.name) {
+                        let popupContent = `<b>${feature.properties.name}</b>`;
+                        if (feature.properties.type) {
+                            popupContent += `<br>${feature.properties.type}`;
+                        }
+                        layer.bindPopup(popupContent);
+                    }
+                }
+            }).addTo(map);
+        })
+        .catch(error => {
+            console.error('Failed to load amenities data:', error);
+        });
+}
+
+// Initial load of all amenities
+filterAmenities('all');
+
+// Add event listener for the dropdown
+document.getElementById('amenity-type').addEventListener('change', function () {
+    const selectedType = this.value;
+    filterAmenities(selectedType);
+});

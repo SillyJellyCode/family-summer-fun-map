@@ -2,14 +2,28 @@
 <html>
 <head>
     <title>Family's Summer Fun Map</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
         #map {
-            height: 100vh;
+            height: 90vh;
+            width: 100%;
+        }
+        #filter {
+            margin: 10px;
         }
     </style>
 </head>
 <body>
+    <div id="filter">
+        <label for="amenity-type">Filter by Amenity Type: </label>
+        <select id="amenity-type">
+            <option value="all">All</option>
+            <option value="Playground">Playground</option>
+            <option value="Splash Pad">Splash Pad</option>
+            <!-- Add more options as needed -->
+        </select>
+    </div>
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
