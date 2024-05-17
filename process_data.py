@@ -66,7 +66,7 @@ print("GTFS data extracted and saved as CSV files.")
 print("GeoJSON files loaded successfully.")
 
 
-# Filter stops to include only those within a specific area (latitude and longitude bounds)
+# Filter stops to include only those weithin a specific area (latitude and longitude bounds)
 latitude_bounds = (42.9, 43.0)
 longitude_bounds = (-81.3, -81.2)
 

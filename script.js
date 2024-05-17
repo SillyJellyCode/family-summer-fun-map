@@ -42,7 +42,7 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty, isShape = fa
         });
 }
 
-// Function to get selected amenity types
+// Function to get selected3 amenity types
 function getSelectedAmenityTypes() {
     const checkboxes = document.querySelectorAll('#amenity-type-group input[type="checkbox"]:checked');
     return Array.from(checkboxes).map(checkbox => checkbox.value);
