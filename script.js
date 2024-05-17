@@ -17,6 +17,17 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty, isShape = fa
         })
         .then(data => {
             L.geoJSON(data, {
+                style: function (feature) {
+                    if (isShape) {
+                        return {
+                            color: "#800080", // Border color (purple)
+                            fillColor: "#800080", // Fill color (purple)
+                            weight: 1, // Border weight
+                            opacity: 0.7, // Border opacity
+                            fillOpacity: 0.3 // Fill opacity
+                        };
+                    }
+                },
                 onEachFeature: function (feature, layer) {
                     if (feature.properties && feature.properties[nameProperty]) {
                         let popupContent = `<b>${feature.properties[nameProperty]}</b>`;
