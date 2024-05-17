@@ -42,7 +42,7 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty, isShape = fa
         });
 }
 
-// Function to get selected3 amenity types
+// Function to get selected amenity types
 function getSelectedAmenityTypes() {
     const checkboxes = document.querySelectorAll('#amenity-type-group input[type="checkbox"]:checked');
     return Array.from(checkboxes).map(checkbox => checkbox.value);
@@ -70,7 +70,7 @@ function filterAmenities() {
 
                 pointToLayer: (feature, latlng) => L.circleMarker(latlng, {
                     radius: 5,
-                    fillColor: "#3388ff",
+                    fillColor: "#3388ff", 
                     color: "#000",
                     weight: 1,
                     opacity: 1,
@@ -91,7 +91,7 @@ function filterAmenities() {
 // Add GeoJSON data for parks with labels
 addGeoJsonData('data/Parks.geojson', map, 'GIS_FeatureKey', 'description', true);
 
-// Initial load and event listeners 
+// Initial load and event to listeners 
 filterAmenities();
 
 document.querySelectorAll('#amenity-type-group input[type="checkbox"]').forEach(checkbox => {
