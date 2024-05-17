@@ -2,66 +2,117 @@
 <html>
 <head>
     <title>Family's Summer Fun Map</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
     <style>
         #map {
-            height: 90vh;
-            width: 100%;
-        }
-        #filter {
-            margin: 10px;
-        }
-        .checkbox-group {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .checkbox-group label {
-            margin-right: 10px;
+            height: 70vh;
         }
     </style>
 </head>
-<body>
-    <div id="filter">
-        <label>Filter by Amenity Type:</label>
-        <div class="checkbox-group" id="amenity-type-group">
-            <label><input type="checkbox" value="Adult Exercise Station"> Adult Exercise Station</label>
-            <label><input type="checkbox" value="Arena"> Arena</label>
-            <label><input type="checkbox" value="Baseball Diamond"> Baseball Diamond</label>
-            <label><input type="checkbox" value="Baseball Stadium"> Baseball Stadium</label>
-            <label><input type="checkbox" value="Basketball Court"> Basketball Court</label>
-            <label><input type="checkbox" value="Batting Cage"> Batting Cage</label>
-            <label><input type="checkbox" value="Community Centre"> Community Centre</label>
-            <label><input type="checkbox" value="Community Garden"> Community Garden</label>
-            <label><input type="checkbox" value="Cricket Pitch"> Cricket Pitch</label>
-            <label><input type="checkbox" value="Disc Golf"> Disc Golf</label>
-            <label><input type="checkbox" value="Football Field"> Football Field</label>
-            <label><input type="checkbox" value="Indoor Pool"> Indoor Pool</label>
-            <label><input type="checkbox" value="Multi Use Pad"> Multi Use Pad</label>
-            <label><input type="checkbox" value="Off-leash Park"> Off-leash Park</label>
-            <label><input type="checkbox" value="Outdoor Ice Pad"> Outdoor Ice Pad</label>
-            <label><input type="checkbox" value="Outdoor Pool"> Outdoor Pool</label>
-            <label><input type="checkbox" value="Pickleball Court"> Pickleball Court</label>
-            <label><input type="checkbox" value="Play Structure"> Play Structure</label>
-            <label><input type="checkbox" value="Skateboard Park"> Skateboard Park</label>
-            <label><input type="checkbox" value="Soccer Field"> Soccer Field</label>
-            <label><input type="checkbox" value="Spray Pad"> Spray Pad</label>
-            <label><input type="checkbox" value="Swing Set"> Swing Set</label>
-            <label><input type="checkbox" value="Tennis Court"> Tennis Court</label>
-            <label><input type="checkbox" value="Volleyball Court"> Volleyball Court</label>
-            <label><input type="checkbox" value="Wading Pool"> Wading Pool</label>
-            <label><input type="checkbox" value="Washroom"> Washroom</label>
-        </div>
+<body class="has-background-light">
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <label class="label">Filter by Amenity Type:</label>
+                <div class="field is-grouped is-grouped-multiline" id="amenity-type-group">
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Adult Exercise Station"> Adult Exercise Station</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Arena"> Arena</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Baseball Diamond"> Baseball Diamond</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Baseball Stadium"> Baseball Stadium</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Basketball Court"> Basketball Court</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Batting Cage"> Batting Cage</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Community Centre"> Community Centre</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Community Garden"> Community Garden</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Cricket Pitch"> Cricket Pitch</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Disc Golf"> Disc Golf</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Football Field"> Football Field</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Indoor Pool"> Indoor Pool</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Multi Use Pad"> Multi Use Pad</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Off-leash Park"> Off-leash Park</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Outdoor Ice Pad"> Outdoor Ice Pad</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Outdoor Pool"> Outdoor Pool</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Pickleball Court"> Pickleball Court</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Play Structure"> Play Structure</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Skateboard Park"> Skateboard Park</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Soccer Field"> Soccer Field</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Spray Pad"> Spray Pad</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Swing Set"> Swing Set</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Tennis Court"> Tennis Court</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Volleyball Court"> Volleyball Court</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Wading Pool"> Wading Pool</label>
+                    </div>
+                    <div class="control">
+                        <label class="checkbox"><input type="checkbox" value="Washroom"> Washroom</label>
+                    </div>
+                </div>
+            </div>
 
-        <label for="amenity-owner">Filter by Owner: </label>
-        <select id="amenity-owner">
-            <option value="all">All</option>
-            <option value="City">City</option>
-            <option value="Private">Private</option>
-            <option value="School">School</option>
-        </select>
-    </div>
-    <div id="map"></div>
+            <div class="box">
+                <label for="amenity-owner" class="label">Filter by Owner:</label>
+                <div class="control">
+                    <div class="select is-fullwidth">
+                        <select id="amenity-owner">
+                            <option value="all">All</option>
+                            <option value="City">City</option>
+                            <option value="Private">Private</option>
+                            <option value="School">School</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="map" class="box"></div>
+        </div>
+    </section>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>
