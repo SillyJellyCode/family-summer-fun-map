@@ -78,7 +78,7 @@ function filterAmenities() {
                 }),
 
                 onEachFeature: (feature, layer) => {
-                    if (feature.properties && feature.properties.name) {
+                    if (feature.properties && feature.properties.Type) {
                         let popupContent = `<b>${feature.properties.name}</b><br>${feature.properties.Type}<br>${feature.properties.Owner}`;
                         layer.bindPopup(popupContent);
                     }
@@ -91,7 +91,7 @@ function filterAmenities() {
 // Add GeoJSON data for parks with labels
 addGeoJsonData('data/Parks.geojson', map, 'GIS_FeatureKey', 'description', true);
 
-// Initial load and event to listeners 
+// Initial load and event listeners 
 filterAmenities();
 
 document.querySelectorAll('#amenity-type-group input[type="checkbox"]').forEach(checkbox => {
@@ -99,3 +99,31 @@ document.querySelectorAll('#amenity-type-group input[type="checkbox"]').forEach(
 });
 
 document.getElementById('amenity-owner').addEventListener('change', filterAmenities);
+
+// Toggle filter visibility
+document.getElementById('toggle-filters').addEventListener('click', function() {
+    const filterSection = document.getElementById('filter-section');
+    if (filterSection.style.display === 'none' || filterSection.style.display === '') {
+        filterSection.style.display = 'block';
+        this.textContent = 'Hide Filters';
+    } else {
+        filterSection.style.display = 'none';
+        this.textContent = 'Show Filters';
+    }
+});
+
+// Toggle navbar burger on mobile
+document.addEventListener('DOMContentLoaded', () => {
+    const navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    if (navbarBurgers.length > 0) {
+        navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+            });
+        });
+    }
+});

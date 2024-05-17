@@ -30,14 +30,40 @@
             flex-wrap: wrap;
             gap: 10px;
         }
+        #filter-section {
+            display: none;
+        }
     </style>
 </head>
 <body class="has-background-light">
+    <nav class="navbar is-primary">
+        <div class="navbar-brand">
+            <a class="navbar-item">
+                <strong>Family's Summer Fun Map</strong>
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" id="toggle-filters">
+                    Show Filters
+                </a>
+            </div>
+        </div>
+    </nav>
+
     <section class="section">
         <div class="container">
             <div class="box">
                 <h1 class="title">Family's Summer Fun Map</h1>
                 <h2 class="subtitle">Explore parks, playgrounds, and other fun spots in London, ON!</h2>
+            </div>
+            <div id="filter-section" class="box">
                 <div class="field">
                     <label class="label">Filter by Amenity Type:</label>
                     <div class="control">
