@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Family's Summer Fun Map!</title>
+    <title>Family's Summer Fun Map</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
@@ -12,40 +12,46 @@
         #filter {
             margin: 10px;
         }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .checkbox-group label {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
     <div id="filter">
-        <label for="amenity-type">Filter by Amenity Type: </label>
-        <select id="amenity-type">
-            <option value="all">All</option>
-            <option value="Adult Exercise Station">Adult Exercise Station</option>
-            <option value="Arena">Arena</option>
-            <option value="Baseball Diamond">Baseball Diamond</option>
-            <option value="Baseball Stadium">Baseball Stadium</option>
-            <option value="Basketball Court">Basketball Court</option>
-            <option value="Batting Cage">Batting Cage</option>
-            <option value="Community Centre">Community Centre</option>
-            <option value="Community Garden">Community Garden</option>
-            <option value="Cricket Pitch">Cricket Pitch</option>
-            <option value="Disc Golf">Disc Golf</option>
-            <option value="Football Field">Football Field</option>
-            <option value="Indoor Pool">Indoor Pool</option>
-            <option value="Multi Use Pad">Multi Use Pad</option>
-            <option value="Off-leash Park">Off-leash Park</option>
-            <option value="Outdoor Ice Pad">Outdoor Ice Pad</option>
-            <option value="Outdoor Pool">Outdoor Pool</option>
-            <option value="Pickleball Court">Pickleball Court</option>
-            <option value="Play Structure">Play Structure</option>
-            <option value="Skateboard Park">Skateboard Park</option>
-            <option value="Soccer Field">Soccer Field</option>
-            <option value="Spray Pad">Spray Pad</option>
-            <option value="Swing Set">Swing Set</option>
-            <option value="Tennis Court">Tennis Court</option>
-            <option value="Volleyball Court">Volleyball Court</option>
-            <option value="Wading Pool">Wading Pool</option>
-            <option value="Washroom">Washroom</option>
-        </select>
+        <label>Filter by Amenity Type:</label>
+        <div class="checkbox-group" id="amenity-type-group">
+            <label><input type="checkbox" value="Adult Exercise Station"> Adult Exercise Station</label>
+            <label><input type="checkbox" value="Arena"> Arena</label>
+            <label><input type="checkbox" value="Baseball Diamond"> Baseball Diamond</label>
+            <label><input type="checkbox" value="Baseball Stadium"> Baseball Stadium</label>
+            <label><input type="checkbox" value="Basketball Court"> Basketball Court</label>
+            <label><input type="checkbox" value="Batting Cage"> Batting Cage</label>
+            <label><input type="checkbox" value="Community Centre"> Community Centre</label>
+            <label><input type="checkbox" value="Community Garden"> Community Garden</label>
+            <label><input type="checkbox" value="Cricket Pitch"> Cricket Pitch</label>
+            <label><input type="checkbox" value="Disc Golf"> Disc Golf</label>
+            <label><input type="checkbox" value="Football Field"> Football Field</label>
+            <label><input type="checkbox" value="Indoor Pool"> Indoor Pool</label>
+            <label><input type="checkbox" value="Multi Use Pad"> Multi Use Pad</label>
+            <label><input type="checkbox" value="Off-leash Park"> Off-leash Park</label>
+            <label><input type="checkbox" value="Outdoor Ice Pad"> Outdoor Ice Pad</label>
+            <label><input type="checkbox" value="Outdoor Pool"> Outdoor Pool</label>
+            <label><input type="checkbox" value="Pickleball Court"> Pickleball Court</label>
+            <label><input type="checkbox" value="Play Structure"> Play Structure</label>
+            <label><input type="checkbox" value="Skateboard Park"> Skateboard Park</label>
+            <label><input type="checkbox" value="Soccer Field"> Soccer Field</label>
+            <label><input type="checkbox" value="Spray Pad"> Spray Pad</label>
+            <label><input type="checkbox" value="Swing Set"> Swing Set</label>
+            <label><input type="checkbox" value="Tennis Court"> Tennis Court</label>
+            <label><input type="checkbox" value="Volleyball Court"> Volleyball Court</label>
+            <label><input type="checkbox" value="Wading Pool"> Wading Pool</label>
+            <label><input type="checkbox" value="Washroom"> Washroom</label>
+        </div>
 
         <label for="amenity-owner">Filter by Owner: </label>
         <select id="amenity-owner">

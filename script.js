@@ -42,23 +42,35 @@ function addGeoJsonData(url, map, nameProperty, additionalProperty, isShape = fa
         });
 }
 
+// Function to get selected amenity types
+function getSelectedAmenityTypes() {
+    const checkboxes = document.querySelectorAll('#amenity-type-group input[type="checkbox"]:checked');
+    return Array.from(checkboxes).map(checkbox => checkbox.value);
+}
+
 // Function to filter amenities
-function filterAmenities(type, owner) {
+function filterAmenities() {
+    const selectedTypes = getSelectedAmenityTypes();
+    const selectedOwner = document.getElementById('amenity-owner').value;
+
     if (amenitiesLayer) {
-        map.removeLayer(amenitiesLayer); 
+        map.removeLayer(amenitiesLayer);
     }
 
     fetch('data/Park_Amenities.geojson')
         .then(response => response.json())
         .then(data => {
             amenitiesLayer = L.geoJSON(data, {
-                filter: feature => 
-                    (type === 'all' || feature.properties.Type.toLowerCase() === type.toLowerCase()) &&
-                    (owner === 'all' || feature.properties.Owner.toLowerCase() === owner.toLowerCase()),
+                filter: feature => {
+                    const typeMatch = (selectedTypes.length === 0 || selectedTypes.includes(feature.properties.Type));
+                    const ownerMatch = (selectedOwner === 'all' || feature.properties.Owner === selectedOwner);
+                    console.log(`Filtering feature: ${feature.properties.name}, Type: ${feature.properties.Type}, Owner: ${feature.properties.Owner}, Type match: ${typeMatch}, Owner match: ${ownerMatch}`);
+                    return typeMatch && ownerMatch;
+                },
 
                 pointToLayer: (feature, latlng) => L.circleMarker(latlng, {
                     radius: 5,
-                    fillColor: "#3388ff", 
+                    fillColor: "#3388ff",
                     color: "#000",
                     weight: 1,
                     opacity: 1,
@@ -80,16 +92,10 @@ function filterAmenities(type, owner) {
 addGeoJsonData('data/Parks.geojson', map, 'GIS_FeatureKey', 'description', true);
 
 // Initial load and event listeners 
-filterAmenities('all', 'all');
+filterAmenities();
 
-document.getElementById('amenity-type').addEventListener('change', function () {
-    const selectedType = this.value;
-    const selectedOwner = document.getElementById('amenity-owner').value;
-    filterAmenities(selectedType, selectedOwner);
+document.querySelectorAll('#amenity-type-group input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', filterAmenities);
 });
 
-document.getElementById('amenity-owner').addEventListener('change', function () {
-    const selectedOwner = this.value;
-    const selectedType = document.getElementById('amenity-type').value;
-    filterAmenities(selectedType, selectedOwner);
-});
+document.getElementById('amenity-owner').addEventListener('change', filterAmenities);
